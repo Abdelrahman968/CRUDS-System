@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Font Awesome Pro+ -->
+  <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v7.1.0/css/all.css" />
+  <!-- BootStrap 5.3.0 -->
+  <link href="./assets/css/bootstrap.min.css" rel="stylesheet" />
+  <script defer src="./assets/js/bootstrap.bundle.min.js"></script>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="./assets/css/main.css" />
+  <title>CRUDS System</title>
+</head>
+
+<body>
+  <div class="container my-5">
+    <header class="my-5 p-3 mx-auto fw-bolder text-dark rounded-3 text-center shadow-sm">
+      <h1>CRUDS System</h1>
+    </header>
+
+    <!-- form  -->
+    <div class="form">
+      <div class="form-floating mb-3">
+        <input oninput="validated(this)" type="text" class="form-control" id="productName" placeholder="Ex. Oppo C50"
+          required />
+        <label for="productName">Product Name</label>
+        <div class="valid-feedback">Product Name is valid</div>
+        <div class="invalid-feedback">
+          <span>Product Name is invalid</span>
+          <small>
+            <ul>
+              <li>Allows letters, numbers, and spaces</li>
+              <li>Enforces a realistic length (3–100 chars)</li>
+              <li>Prevents empty or 1-char names</li>
+            </ul>
+          </small>
+        </div>
+      </div>
+
+      <div class="form-floating mb-3">
+        <input oninput="validated(this)" type="number" class="form-control" id="productPrice" placeholder="Ex. 3000"
+          required />
+        <label for="productPrice">Product Price</label>
+        <div class="valid-feedback">Product Price is valid</div>
+        <div class="invalid-feedback">
+          <span>Product Price is invalid</span>
+          <small>
+            <ul>
+              <li>Supports integers and decimals</li>
+              <li>Valid: 100, 99.5, 199.99</li>
+              <li>Invalid: 01,-50, 10.123</li>
+            </ul>
+          </small>
+        </div>
+      </div>
+
+      <div class="form-floating mb-3">
+        <input oninput="validated(this)" autocomplete="off" list="productListCategory" type="text" class="form-control"
+          id="productCategory" placeholder="Ex. TV" required />
+        <label for="productCategory">Product Category</label>
+
+        <datalist id="productListCategory">
+          <option value="TVs"></option>
+          <option value="Screens"></option>
+          <option value="Mobiles"></option>
+        </datalist>
+        <div class="valid-feedback">Product Category is valid</div>
+        <div class="invalid-feedback">
+          <span>Product Category is invalid</span>
+          <small>
+            <ul>
+              <li>Text only</li>
+              <li>Clean category naming</li>
+              <li>Prevents super short or meaningless values</li>
+            </ul>
+          </small>
+        </div>
+      </div>
+
+      <div class="form-floating mb-3">
+        <textarea oninput="validated(this)" type="text" class="form-control" id="productDesc" placeholder="Ex. Good"
+          required></textarea>
+        <label for="productDesc">Product Desc</label>
+        <div class="valid-feedback">Product Desc is valid</div>
+        <div class="invalid-feedback">
+          <span>Product Desc is invalid</span>
+          <small>
+            <ul>
+              <li>Allows punctuation and numbers</li>
+              <li>Enforces meaningful descriptions (10–500 chars)</li>
+            </ul>
+          </small>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="productImg" class="mb-2 fs-5">Product Img</label>
+        <input type="file" class="form-control" id="productImg" />
+        <img id="imgPreview" width="150">
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex justify-content-center align-items-center gap-1">
+          <button class="btn btn-success me-auto" onclick="createProduct()" id="add-btn">
+            <i class="fa-regular fa-square-plus me-1"></i> Add Product
+          </button>
+          <button class="btn btn-info d-none me-auto" onclick="editFinal()" id="update-btn">
+            <i class="fa-solid fa-pen-to-square me-1"></i>Edit Product
+          </button>
+        </div>
+        <button type="button" id="clear-btn" class="btn btn-danger ms-auto" data-bs-toggle="modal"
+          data-bs-target="#staticBackdrop">
+          <i class="fa-solid fa-trash me-1"></i>Clear Cache
+        </button>
+
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+          aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                  Clear Date
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                Are You Sure you want to clear the data from localstorage !?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                  Close
+                </button>
+                <button type="button" data-bs-dismiss="modal" class="btn btn-danger" onclick="clearList()">
+                  Clear Data
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="products my-5">
+      <h2 class="text-center mb-5 bg-secondary text-light p-2 rounded-pill fw-bold">
+        ProductList
+      </h2>
+
+      <div class="my-5">
+        <input type="text" class="form-control" id="searchInput" placeholder="Ex.Oppo C50 - By Name"
+          oninput="searchByName()" />
+      </div>
+
+      <div class="row g-4" id="displayListHTML"></div>
+    </div>
+  </div>
+
+  <script src="./assets/js/index.js"></script>
+</body>
+
+</html>
